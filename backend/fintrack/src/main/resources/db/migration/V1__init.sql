@@ -1,0 +1,1 @@
+-- Baseline migration. Add tables in new V<n>__<description>.sql files.
