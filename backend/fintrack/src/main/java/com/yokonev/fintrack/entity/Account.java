@@ -20,6 +20,7 @@ import jakarta.persistence.ManyToOne;
  */
 @Entity 
 @Table(
+    name = "accounts",
     indexes = {
         @Index(name = "idx_account_owner", columnList = "user_id"),
     }

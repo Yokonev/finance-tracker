@@ -30,6 +30,7 @@ import jakarta.persistence.Id;
  */
 @Entity
 @Table(
+    name = "transactions",
     indexes = {
         @Index(name = "idx_transactions_source", columnList = "source_account_id"),
         @Index(name = "idx_transactions_destination", columnList = "destination_account_id")
