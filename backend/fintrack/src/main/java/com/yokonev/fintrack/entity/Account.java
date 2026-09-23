@@ -47,15 +47,19 @@ public class Account {
 
     public Account(
         @Nonnull Money amount, 
-        @Nonnull String accountName)
+        @Nonnull String accountName,
+        @Nonnull User owner
+    )
     {
         this.amount = amount;
+        this.owner = owner;
         this.accountName = requireNotBlank(accountName, "name");
     }
 
     public Long getId(){ return this.id; }
     public Money getAmount(){ return this.amount; }
     public String getAccountName(){ return this.accountName; }
+    public User getOwner(){ return this.owner; }
 
     public void setAmount(@Nonnull Money newAmount){
         this.amount = newAmount;
