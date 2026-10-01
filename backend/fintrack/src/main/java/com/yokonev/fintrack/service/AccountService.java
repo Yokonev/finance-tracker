@@ -2,8 +2,15 @@ package com.yokonev.fintrack.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.yokonev.fintrack.dto.AccountResponse;
 
+/**
+ * 
+ * <p> Account service interface. Follows CRUD operations. </p>
+ */
+@Service 
 public interface AccountService {
     
     AccountResponse getAccountById(Long userId, Long accountId);

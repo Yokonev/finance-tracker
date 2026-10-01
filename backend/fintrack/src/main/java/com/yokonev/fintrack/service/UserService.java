@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 
 import com.yokonev.fintrack.dto.UserResponse;
 
+/**
+ * 
+ * <p> User service interface. Follows CRUD operations. </p>
+ */
 @Service 
 public interface UserService {
     UserResponse getUserById(Long id);
