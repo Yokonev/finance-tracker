@@ -12,7 +12,6 @@ import com.yokonev.fintrack.dto.TransactionResponse;
  * 
  * <p> Transaction service interface. Follows CRUD operations. </p>
  */
-@Service 
 public interface TransactionService {
 
     List<TransactionResponse> getTransactionsByFilter(Long userId, TransactionFilterRequest filter);
