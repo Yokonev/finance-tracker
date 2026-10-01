@@ -1,8 +1,14 @@
 package com.yokonev.fintrack.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.yokonev.fintrack.entity.User;
+import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long>{
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.yokonev.fintrack.entity.AppUser;
+
+public interface UserRepository extends JpaRepository<AppUser, Long>{
+
+    Optional<AppUser> findByUsername(String username);
+    
+    boolean existsByUsername(String username);
 
 }

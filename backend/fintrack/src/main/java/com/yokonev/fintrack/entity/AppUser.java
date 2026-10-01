@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
  */
 @Entity 
 @Table(name = "users")
-public class User {
+public class AppUser {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,11 @@ public class User {
     @Column(nullable=false)
     private String passwordHash;
 
-    protected User(){ //Required by JPA
+    protected AppUser(){ //Required by JPA
 
     }
 
-    public User(
+    public AppUser(
         @Nonnull String username, 
         @Nonnull String email, 
         @Nonnull String passwordHash)

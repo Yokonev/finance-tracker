@@ -10,4 +10,9 @@ public class HelloController {
     public String hello() {
         return "Welcome! You are successfully authenticated.";
     }
+
+    @GetMapping("/public/hello")
+    public String publicHello() {
+        return "Welcome! You are on the public page.";
+    }
 }

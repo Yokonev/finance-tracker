@@ -1,52 +1,36 @@
 package com.yokonev.fintrack.service;
 
+import java.util.List;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.yokonev.fintrack.dto.UserResponse;
+import com.yokonev.fintrack.entity.AppUser;
+import com.yokonev.fintrack.repository.UserRepository;
 
 @Service 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserDetailsService {
 
-    @Override
-    public UserResponse getUserById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
+    private final UserRepository userRepo;
+
+    public UserServiceImpl(UserRepository userRepo){
+        this.userRepo = userRepo;
     }
 
     @Override
-    public UserResponse getUserByEmail(String email) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserByEmail'");
-    }
-
-    @Override
-    public UserResponse createNewUser(String username, String email, String password) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createNewUser'");
-    }
-
-    @Override
-    public UserResponse updateUserUsername(Long id, String newUsername) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUserUsername'");
-    }
-
-    @Override
-    public UserResponse updateUserEmail(Long id, String newEmail) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUserEmail'");
-    }
-
-    @Override
-    public UserResponse updateUserPassword(Long id, String newPassword) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUserPassword'");
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser user = userRepo.findByUsername(username)
+            .orElseThrow(
+                () -> new UsernameNotFoundException(username)
+            );
+            return User
+                .withUsername(user.getUsername())
+                .password(user.getPasswordHash())
+                .authorities(List.of())
+                .build();
     }
     
 }

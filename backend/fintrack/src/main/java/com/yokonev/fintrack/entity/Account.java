@@ -39,7 +39,7 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private User owner;
+    private AppUser owner;
 
     protected Account(){ //Required by JPA
 
@@ -48,7 +48,7 @@ public class Account {
     public Account(
         @Nonnull Money amount, 
         @Nonnull String accountName,
-        @Nonnull User owner
+        @Nonnull AppUser owner
     )
     {
         this.amount = amount;
@@ -59,7 +59,7 @@ public class Account {
     public Long getId(){ return this.id; }
     public Money getAmount(){ return this.amount; }
     public String getAccountName(){ return this.accountName; }
-    public User getOwner(){ return this.owner; }
+    public AppUser getOwner(){ return this.owner; }
 
     public void setAmount(@Nonnull Money newAmount){
         this.amount = newAmount;
