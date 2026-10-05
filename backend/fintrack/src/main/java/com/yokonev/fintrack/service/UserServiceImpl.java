@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepo.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException(username));
     }
-
+    
     private static UserResponse toResponse(AppUser user) {
         return new UserResponse(user.getId(), user.getUsername(), user.getEmail());
     }
