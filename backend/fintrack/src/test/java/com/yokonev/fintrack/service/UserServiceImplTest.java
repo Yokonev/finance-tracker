@@ -52,9 +52,9 @@ class UserServiceImplTest {
         @Test
         @DisplayName("Returns UserDetails with stored credentials when user exists")
         void returnsUserDetailsWithStoredCredentialsTest() {
-            when(userRepo.findByUsername(USERNAME)).thenReturn(Optional.of(user));
+            when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(user));
 
-            UserDetails details = userService.loadUserByUsername(USERNAME);
+            UserDetails details = userService.loadUserByUsername(EMAIL);
 
             assertEquals(USERNAME, details.getUsername());
             assertEquals(PASSWORD_HASH, details.getPassword());
@@ -63,19 +63,19 @@ class UserServiceImplTest {
         @Test
         @DisplayName("Throws UsernameNotFoundException when user does not exist")
         void userNotFoundThrowsExceptionTest() {
-            when(userRepo.findByUsername(USERNAME)).thenReturn(Optional.empty());
+            when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.empty());
 
             assertThrows(UsernameNotFoundException.class, 
-                () -> userService.loadUserByUsername(USERNAME)
+                () -> userService.loadUserByUsername(EMAIL)
             );
         }
 
         @Test
         @DisplayName("Grants no user authorities when user exists")
         void grantsNoAuthoritiesTest() {
-            when(userRepo.findByUsername(USERNAME)).thenReturn(Optional.of(user));
+            when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(user));
 
-            UserDetails details = userService.loadUserByUsername(USERNAME);
+            UserDetails details = userService.loadUserByUsername(EMAIL);
 
             assertTrue(details.getAuthorities().isEmpty());
         }
@@ -106,14 +106,14 @@ class UserServiceImplTest {
     }
 
     @Nested
-    class GetUserByUsername {
+    class GetUserByEmail {
 
         @Test
         @DisplayName("A user fetched from a repo by username maps user correctly to a response")
         void mapsUserToResponseTest() {
-            when(userRepo.findByUsername(USERNAME)).thenReturn(Optional.of(user));
+            when(userRepo.findByEmail(EMAIL)).thenReturn(Optional.of(user));
 
-            UserResponse response = userService.getUserByUsername(USERNAME);
+            UserResponse response = userService.getUserByEmail(EMAIL);
 
             assertEquals(new UserResponse(USER_ID, USERNAME, EMAIL), response);
         }
@@ -121,10 +121,10 @@ class UserServiceImplTest {
         @Test
         @DisplayName("Throws NoSuchElementException when user does not exist")
         void throwsUsernameNotFoundWhenUserDoesNotExistTest() {
-            when(userRepo.findByUsername("unknown")).thenReturn(Optional.empty());
+            when(userRepo.findByEmail("unknown")).thenReturn(Optional.empty());
 
             assertThrows(UsernameNotFoundException.class,
-                () -> userService.getUserByUsername("unknown")
+                () -> userService.getUserByEmail("unknown")
             );
         }
     }

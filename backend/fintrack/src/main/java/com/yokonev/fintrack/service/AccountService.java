@@ -2,8 +2,6 @@ package com.yokonev.fintrack.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.yokonev.fintrack.dto.AccountResponse;
 
 /**

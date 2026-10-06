@@ -9,6 +9,6 @@ import com.yokonev.fintrack.dto.UserResponse;
 public interface UserService {
 
     UserResponse getUserById(Long userId);
-    UserResponse getUserByUsername(String username);
+    UserResponse getUserByEmail(String email);
 
 }

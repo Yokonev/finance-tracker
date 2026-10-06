@@ -1,14 +1,13 @@
 package com.yokonev.fintrack.service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.yokonev.fintrack.configuration.SecurityUser;
 import com.yokonev.fintrack.dto.UserResponse;
 import com.yokonev.fintrack.entity.AppUser;
 import com.yokonev.fintrack.repository.UserRepository;
@@ -23,13 +22,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser user = findByUsername(username);
-        return User
-            .withUsername(user.getUsername())
-            .password(user.getPasswordHash())
-            .authorities(List.of())
-            .build();
+    public UserDetails loadUserByUsername(String email) {
+        return userRepo.findByEmail(email)
+            .map(SecurityUser::new)
+            .orElseThrow(() -> new UsernameNotFoundException("No user with email " + email));
     }
 
     @Override
@@ -40,13 +36,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserResponse getUserByUsername(String username) {
-        return toResponse(findByUsername(username));
+    public UserResponse getUserByEmail(String email) {
+        return toResponse(findByEmail(email));
     }
 
-    private AppUser findByUsername(String username) {
-        return userRepo.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException(username));
+    private AppUser findByEmail(String email) {
+        return userRepo.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException(email));
     }
     
     private static UserResponse toResponse(AppUser user) {
