@@ -12,5 +12,6 @@ import java.math.BigDecimal;
 public record AccountResponse(
     Long id,
     String accountName,
-    BigDecimal balance
+    BigDecimal balance,
+    String currency
 ) {}

@@ -13,5 +13,6 @@ import java.math.BigDecimal;
 public record AccountRequest(
     Long id,
     String accountName,
+    String currency,
     BigDecimal balance
 ) {}
